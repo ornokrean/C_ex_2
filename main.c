@@ -47,7 +47,7 @@ void deleteLine(Line *line)
     {
        free(line->data);
     }
-        free(line);
+    free(line);
 
 
 }
@@ -85,6 +85,7 @@ int main()
             index++;
             // get the line name
             line->name = (char *) realloc(line->name, (sizeof(char) * strlen(currLine))+1);
+            line->data = "";
             if (line->name != NULL)
             {
                 strncpy(line->name, &currLine[1], strlen(currLine) - 1);
@@ -111,10 +112,10 @@ int main()
         printf("name: %s\ndata: %s\n",text[j].name,text[j].data);
     }
     // free all alloc
-    for (int i = 0; i < index; ++i)
-    {
-        deleteLine(&text[i]);
-    }
+//    for (int i = 0; i < index; ++i)
+//    {
+//        deleteLine(&text[i]);
+//    }
 //    free(text);
 
     return 0;
