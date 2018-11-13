@@ -98,7 +98,9 @@ int main()
             if (line->data != NULL)
             {
                 //FIXME handle no alloc
-
+                char *pos;
+                if ((pos=strchr(currLine, '\n')) != NULL)
+                    *pos = '\0';
                 strcat(line->data, currLine);
 
             }
