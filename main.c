@@ -33,10 +33,8 @@ int convert_to_int(const char *to_convert)
 }
 int calc_cell(int *table, int i, int j)
 {
-
     return 0;
-
-}
+1}
 
 int create_table_and_compare(char *str1, char *str2, int gap, int match, int mismatch)
 {
