@@ -171,7 +171,7 @@ void compareSequences(int match, int mismatch, int gap, char *names[MAX_SEQUENCE
             {
                 //create table and compare
                 int res = createAndCalcMatches(seqs[i], seqs[j], gap, match, mismatch);
-                printf("Score for alignment of sequence %s to sequence %s is %d\n", names[i],
+                printf("Score for alignment of %s to %s is %d\n", names[i],
                        names[j], res);
             }
         }
@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
 {
     if (argc != 5)
     {
-        printf("ERROR CompareSequences <path_to_sequences_file> <m> <s> <g>");
+        printf("ERROR Usage: CompareSequences <path_to_sequences_file> <m> <s> <g>");
         exit(EXIT_FAILURE);
     }
 
