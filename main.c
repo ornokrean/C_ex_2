@@ -232,4 +232,5 @@ int main(int argc, char *argv[])
 
 // gcc -Wextra -Wall -Wvla -lm main.c -o ex2
 
-//valgrind --leak-check=full --show-possibly-lost=yes --show-reachable=yes --undef-value-errors=yes ex2 input.txt 1 0 -2
+//valgrind --leak-check=full - -show-possibly-lost=yes --show-reachable=yes
+// --undef-value-errors=yes ex2 input.txt 1 0 -2
