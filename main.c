@@ -16,9 +16,33 @@
  */
 const char START_OF_ROW = '>';
 
+void remove_char(const char *currLine, char to_remove)
+{
+    char *pos;
+    if ((pos = strchr(currLine, to_remove)) != NULL)
+        *pos = '\0';
+}
+
 void
-create_new_sequence(const FILE *file, char *const *names, char *const *seqs, const char *currLine,
-                    size_t *currLen, int *index);
+create_new_sequence( FILE *file, char *names[100], char *seqs[100],  char *currLine,
+                    size_t *currLen, int *index)
+{
+    (*index)++;
+    names[(*index)] = (char *) malloc(sizeof(char) * strlen(currLine) + 1);
+//             get the line name
+    if (names[(*index)] != NULL)
+    {
+        strncpy(names[(*index)], &currLine[1], strlen(currLine));
+    }
+    fgets(currLine, LINE_MAX_LEN, file);
+
+    remove_char(currLine,'\n');
+
+    (*currLen) = strlen(currLine);
+    seqs[(*index)] = (char *) malloc(sizeof(char) * (*currLen) + 1);
+    strcpy(seqs[(*index)], &currLine[0]);
+}
+
 
 #define MAX(a, b) ((a)>(b)) ? a : b;
 
@@ -84,12 +108,7 @@ int create_table_and_compare(char *str1, char *str2, int gap, int match, int mis
     return result; // return the last place
 }
 
-void remove_char(const char *currLine, char to_remove)
-{
-    char *pos;
-    if ((pos = strchr(currLine, to_remove)) != NULL)
-        *pos = '\0';
-}
+
 
 int main(int argc, char *argv[])
 {
@@ -165,29 +184,10 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void
-create_new_sequence(const FILE *file, char *names[100], char *seqs[100], const char *currLine,
-                    size_t *currLen, int *index)
-{
-    (*index)++;
-    names[(*index)] = (char *) malloc(sizeof(char) * strlen(currLine) + 1);
-//             get the line name
-    if (names[(*index)] != NULL)
-            {
-                strncpy(names[(*index)], &currLine[1], strlen(currLine));
-            }
-    fgets(currLine, LINE_MAX_LEN, file);
-
-    remove_char(currLine,'\n');
-
-    (*currLen) = strlen(currLine);
-    seqs[(*index)] = (char *) malloc(sizeof(char) * (*currLen) + 1);
-    strcpy(seqs[(*index)], &currLine[0]);
-}
 
 
 
 
 // gcc -Wextra -Wall -Wvla -lm main.c -o ex2
 
-//valgrind --leak-check=full --show-possibly-lost=yes --show-reachable=yes --undef-value-errors=yes ex2
+//valgrind --leak-check=full --show-possibly-lost=yes --show-reachable=yes --undef-value-errors=yes ex2 input.txt 1 0 -2
