@@ -18,29 +18,34 @@ const char START_OF_ROW = '>';
 #define MAX(a, b) ((a)>(b)) ? a : b;
 
 
-
 int convert_to_int(const char *to_convert)
 {
     char *temp = NULL;
     const int res = (int) strtol(to_convert, &temp, 10);
     if (strlen(temp))
     {
-        fprintf(stderr,"ERROR Not a number");
+        fprintf(stderr, "ERROR Not a number");
         // FIXME NOT A NUMBER FREE MEMORYYYYYYY
         exit(EXIT_FAILURE);
     }
     return res;
 }
-int calc_cell(int *table, int i, int j)
-{
-    return 0;
-1}
 
-int create_table_and_compare(char *str1, char *str2, int gap, int match, int mismatch)
+int calc_cell(int *table, int i, int j, char *str1, char *str2, int col, int gap, int match, int
+mismatch)
 {
-    int row = (int) strlen(str1) + 1, col = (int) strlen(str2) + 1;
-    int *table = (int *) malloc((row) * (col) * sizeof(int));
-    int last = 0; // FIXME SAVE LAST PLACE
+    int up_val = *(table + (i - 1) * col + j) + gap;
+    int left_val = *(table + i * col + j - 1) + gap;
+    int ul_val = *(table + (i - 1) * col + j - 1);
+    ul_val += (str1[i - 1] == str2[j - 1]) ? match : mismatch;
+    int max = MAX(up_val, left_val);
+    max = MAX(max, ul_val);
+    return max;
+}
+
+void initiate_table(int *table, int row, int col, int gap)
+{
+
     for (int k = 0; k < col; ++k)
     {
         *(table + k) = k * gap;
@@ -50,26 +55,24 @@ int create_table_and_compare(char *str1, char *str2, int gap, int match, int mis
         *(table + k * col) = k * gap;
 
     }
+}
 
-
+int create_table_and_compare(char *str1, char *str2, int gap, int match, int mismatch)
+{
+    int row = (int) strlen(str1) + 1, col = (int) strlen(str2) + 1;
+    int *table = (int *) malloc((row) * (col) * sizeof(int));
+    initiate_table(table, row, col, gap);
     for (int i = 1; i < row; ++i)
     {
         for (int j = 1; j < col; ++j)
         {
-            int up_val = *(table + (i - 1) * col + j) + gap;
-            int left_val = *(table + i * col + j - 1) + gap;
-            int ul_val = *(table + (i - 1) * col + j - 1);
-            ul_val += (str1[i - 1] == str2[j - 1]) ? match : mismatch;
-            int max = MAX(up_val, left_val);
-            max = MAX(max, ul_val);
-            *(table + i * col + j) = max;
-            last = max;
+            *(table + i * col + j) = calc_cell(table, i, j, str1, str2, col, gap, match, mismatch);
         }
 
     }
-
+    int result = *(table + (row - 1) * col + col - 1);
     free(table);
-    return last;
+    return result; // return the last place
 }
 
 
@@ -84,10 +87,6 @@ int main(int argc, char *argv[])
     int match = convert_to_int(argv[2]);
     int mismatch = convert_to_int(argv[3]);
     int gap = convert_to_int(argv[4]);
-
-
-
-
     FILE *file;
     file = fopen(filePath, "r");
     if (file == NULL)
@@ -96,7 +95,6 @@ int main(int argc, char *argv[])
         //fprintf(stderr, OPENING_FILE_ERR, filePath);
         exit(EXIT_FAILURE);
     }
-
     char *names[100];
     char *seqs[100];
     char currLine[102];
@@ -129,7 +127,8 @@ int main(int argc, char *argv[])
             strcpy(seqs[index], &currLine[0]);
 
 
-        } else // add to current line
+        }
+        else // add to current line
         {
             currLen += strlen(currLine);
             seqs[index] = (char *) realloc(seqs[index], sizeof(char) * currLen + 1);
