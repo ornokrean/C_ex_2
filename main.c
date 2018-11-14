@@ -32,6 +32,12 @@ static const char EMPTY_CHAR = '\0';
 #define MAX(a, b) ((a)>(b)) ? a : b;
 
 
+int getBiggerOfThree(int a, int b, int c){
+    int max = MAX(a, b);
+    max = MAX(max, c);
+    return max;
+}
+
 void *setMemory(void *oldMemory, size_t newSize)
 {
     void *newMemory = (oldMemory == NULL) ? malloc(newSize) : realloc(oldMemory, newSize);
@@ -109,8 +115,7 @@ int calcCell(const int *table, int i, int j, const char *str1, const char *str2,
     int left_val = *(table + i * col + j - 1) + gap;
     int ul_val = *(table + (i - 1) * col + j - 1);
     ul_val += (str1[i - 1] == str2[j - 1]) ? match : mismatch;
-    int max = MAX(up_val, left_val);
-    max = MAX(max, ul_val);
+    int max = getBiggerOfThree(up_val, left_val,ul_val);
     return max;
 }
 
@@ -167,7 +172,6 @@ void compareSequences(int match, int mismatch, int gap, char *names[MAX_SEQUENCE
                 int res = createAndCalcMatches(seqs[i], seqs[j], gap, match, mismatch);
                 printf("Score for alignment of sequence %s to sequence %s is %d\n", names[i],
                        names[j], res);
-
             }
         }
     }
@@ -177,7 +181,7 @@ int main(int argc, char *argv[])
 {
     if (argc != 5)
     {
-        fprintf(stderr, "ERROR"); //FIXME ERRROR OF NUM ARGS
+        printf("ERROR CompareSequences <path_to_sequences_file> <m> <s> <g>");
         exit(EXIT_FAILURE);
     }
 
