@@ -1,13 +1,13 @@
-Score for alignment of sequence seq1 to sequence 21312 is 46673
-Score for alignment of sequence seq1 to sequence seq1 is 80406
-Score for alignment of sequence seq1 to sequence 21312 is 41126
-Score for alignment of sequence seq1 to sequence seq1 is 128392
-Score for alignment of sequence seq1 to sequence 21312 is 27827
-Score for alignment of sequence seq1 to sequence seq1 is 66717
-Score for alignment of sequence seq1 to sequence 21312 is 49205
-Score for alignment of sequence 21312 to sequence seq1 is 19346
-Score for alignment of sequence 21312 to sequence 21312 is 23639
-Score for alignment of sequence 21312 to sequence seq1 is 46673
-Score for alignment of sequence 21312 to sequence 21312 is 75989
-Score for alignment of sequence 21312 to sequence seq1 is -15002
-Score for alignment of sequence 21312 to sequence 21312 is 36203
+Score for alignment of seq1 to 21312 is 10092
+Score for alignment of seq1 to seq1 is 43248
+Score for alignment of seq1 to 21312 is -10810
+Score for alignment of seq1 to seq1 is 95744
+Score for alignment of seq1 to 21312 is -13632
+Score for alignment of seq1 to seq1 is 21789
+Score for alignment of seq1 to 21312 is 1182
+Score for alignment of 21312 to seq1 is -22665
+Score for alignment of 21312 to 21312 is -18904
+Score for alignment of 21312 to seq1 is 10092
+Score for alignment of 21312 to 21312 is 46996
+Score for alignment of 21312 to seq1 is -63863
+Score for alignment of 21312 to 21312 is -3088

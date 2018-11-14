@@ -1,59 +1,59 @@
-Score for alignment of sequence seq1 to sequence seq2 is 5477
-Score for alignment of sequence seq1 to sequence seq3 is 3889
-Score for alignment of sequence seq1 to sequence seq4 is 13620
-Score for alignment of sequence seq1 to sequence seq5 is 5477
-Score for alignment of sequence seq1 to sequence seq6 is 3889
-Score for alignment of sequence seq1 to sequence seq7 is 13620
-Score for alignment of sequence seq1 to sequence seq8 is 5477
-Score for alignment of sequence seq1 to sequence seq9 is 3889
-Score for alignment of sequence seq1 to sequence seq10 is 13620
-Score for alignment of sequence seq1 to sequence name1 is 13620
-Score for alignment of sequence seq1 to sequence name2 is 5477
-Score for alignment of sequence seq1 to sequence name3 is 3889
-Score for alignment of sequence seq1 to sequence name4 is 13620
-Score for alignment of sequence seq1 to sequence name5 is 5477
-Score for alignment of sequence seq1 to sequence name6 is 3889
-Score for alignment of sequence seq1 to sequence name7 is 13620
-Score for alignment of sequence seq1 to sequence name8 is 5477
-Score for alignment of sequence seq1 to sequence name9 is 3889
-Score for alignment of sequence seq1 to sequence name10 is 13620
-Score for alignment of sequence seq1 to sequence seq1 is 13620
-Score for alignment of sequence seq1 to sequence seq2 is 5477
-Score for alignment of sequence seq1 to sequence seq3 is 3889
-Score for alignment of sequence seq1 to sequence seq4 is 13620
-Score for alignment of sequence seq1 to sequence seq5 is 5477
-Score for alignment of sequence seq1 to sequence seq6 is 3889
-Score for alignment of sequence seq1 to sequence seq7 is 13620
-Score for alignment of sequence seq1 to sequence seq8 is 5477
-Score for alignment of sequence seq1 to sequence seq9 is 3889
-Score for alignment of sequence seq1 to sequence seq10 is 13620
-Score for alignment of sequence seq1 to sequence name1GATTACAATATTASJDHJASDHJKASHJDHASKJDHKJASHDKJASHDJKHASKJDHKJNZM<XCVNMZXNCLKVJOIZJXLKOVNLMAXNFD is -83096
-Score for alignment of sequence seq2 to sequence seq3 is 1865
-Score for alignment of sequence seq2 to sequence seq4 is 5477
-Score for alignment of sequence seq2 to sequence seq5 is 11350
-Score for alignment of sequence seq2 to sequence seq6 is 1865
-Score for alignment of sequence seq2 to sequence seq7 is 5477
-Score for alignment of sequence seq2 to sequence seq8 is 11350
-Score for alignment of sequence seq2 to sequence seq9 is 1865
-Score for alignment of sequence seq2 to sequence seq10 is 5477
-Score for alignment of sequence seq2 to sequence name1 is 5477
-Score for alignment of sequence seq2 to sequence name2 is 11350
-Score for alignment of sequence seq2 to sequence name3 is 1865
-Score for alignment of sequence seq2 to sequence name4 is 5477
-Score for alignment of sequence seq2 to sequence name5 is 11350
-Score for alignment of sequence seq2 to sequence name6 is 1865
-Score for alignment of sequence seq2 to sequence name7 is 5477
-Score for alignment of sequence seq2 to sequence name8 is 11350
-Score for alignment of sequence seq2 to sequence name9 is 1865
-Score for alignment of sequence seq2 to sequence name10 is 5477
-Score for alignment of sequence seq2 to sequence seq1 is 5477
-Score for alignment of sequence seq2 to sequence seq2 is 11350
-Score for alignment of sequence seq2 to sequence seq3 is 1865
-Score for alignment of sequence seq2 to sequence seq4 is 5477
-Score for alignment of sequence seq2 to sequence seq5 is 11350
-Score for alignment of sequence seq2 to sequence seq6 is 1865
-Score for alignment of sequence seq2 to sequence seq7 is 5477
-Score for alignment of sequence seq2 to sequence seq8 is 11350
-Score for alignment of sequence seq2 to sequence seq9 is 1865
-Score for alignment of sequence seq2 to sequence seq10 is 5477
-Score for alignment of sequence seq2 to sequence name1GATTACAATATTASJDHJASDHJKASHJDHASKJDHKJASHDKJASHDJKHASKJDHKJNZM<XCVNMZXNCLKVJOIZJXLKOVNLMAXNFD is -84464
+Score for alignment of seq1 to seq2 is -3717
+Score for alignment of seq1 to seq3 is -3955
+Score for alignment of seq1 to seq4 is 324
+Score for alignment of seq1 to seq5 is -3717
+Score for alignment of seq1 to seq6 is -3955
+Score for alignment of seq1 to seq7 is 324
+Score for alignment of seq1 to seq8 is -3717
+Score for alignment of seq1 to seq9 is -3955
+Score for alignment of seq1 to seq10 is 324
+Score for alignment of seq1 to name1 is 324
+Score for alignment of seq1 to name2 is -3717
+Score for alignment of seq1 to name3 is -3955
+Score for alignment of seq1 to name4 is 324
+Score for alignment of seq1 to name5 is -3717
+Score for alignment of seq1 to name6 is -3955
+Score for alignment of seq1 to name7 is 324
+Score for alignment of seq1 to name8 is -3717
+Score for alignment of seq1 to name9 is -3955
+Score for alignment of seq1 to name10 is 324
+Score for alignment of seq1 to seq1 is 324
+Score for alignment of seq1 to seq2 is -3717
+Score for alignment of seq1 to seq3 is -3955
+Score for alignment of seq1 to seq4 is 324
+Score for alignment of seq1 to seq5 is -3717
+Score for alignment of seq1 to seq6 is -3955
+Score for alignment of seq1 to seq7 is 324
+Score for alignment of seq1 to seq8 is -3717
+Score for alignment of seq1 to seq9 is -3955
+Score for alignment of seq1 to seq10 is 324
+Score for alignment of seq1 to name1GATTACAATATTASJDHJASDHJKASHJDHASKJDHKJASHDKJASHDJKHASKJDHKJNZM<XCVNMZXNCLKVJOIZJXLKOVNLMAXNFD is -162639
+Score for alignment of seq2 to seq3 is -563
+Score for alignment of seq2 to seq4 is -3717
+Score for alignment of seq2 to seq5 is 270
+Score for alignment of seq2 to seq6 is -563
+Score for alignment of seq2 to seq7 is -3717
+Score for alignment of seq2 to seq8 is 270
+Score for alignment of seq2 to seq9 is -563
+Score for alignment of seq2 to seq10 is -3717
+Score for alignment of seq2 to name1 is -3717
+Score for alignment of seq2 to name2 is 270
+Score for alignment of seq2 to name3 is -563
+Score for alignment of seq2 to name4 is -3717
+Score for alignment of seq2 to name5 is 270
+Score for alignment of seq2 to name6 is -563
+Score for alignment of seq2 to name7 is -3717
+Score for alignment of seq2 to name8 is 270
+Score for alignment of seq2 to name9 is -563
+Score for alignment of seq2 to name10 is -3717
+Score for alignment of seq2 to seq1 is -3717
+Score for alignment of seq2 to seq2 is 270
+Score for alignment of seq2 to seq3 is -563
+Score for alignment of seq2 to seq4 is -3717
+Score for alignment of seq2 to seq5 is 270
+Score for alignment of seq2 to seq6 is -563
+Score for alignment of seq2 to seq7 is -3717
+Score for alignment of seq2 to seq8 is 270
+Score for alignment of seq2 to seq9 is -563
+Score for alignment of seq2 to seq10 is -3717
+Score for alignment of seq2 to name1GATTACAATATTASJDHJASDHJKASHJDHASKJDHKJASHDKJASHDJKHASKJDHKJNZM<XCVNMZXNCLKVJOIZJXLKOVNLMAXNFD is -166085
