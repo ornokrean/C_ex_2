@@ -23,10 +23,9 @@
 const char START_OF_ROW = '>';
 
 
-
 #define MAX(a, b) ((a)>(b)) ? a : b;
 
-void freeMemory(char  *names[MAX_SEQUENCES_LEN], char  *seqs[MAX_SEQUENCES_LEN], int index)
+void freeMemory(char *names[MAX_SEQUENCES_LEN], char *seqs[MAX_SEQUENCES_LEN], int index)
 {
     for (int i = 0; i <= index; ++i)
     {
@@ -42,9 +41,8 @@ void removeChar(const char *currLine, char to_remove)
         *pos = '\0';
 }
 
-void
-createNewSequence(FILE *file, char **names, char **seqs, char *currLine,
-                  size_t *currLen, int *index)
+void createNewSequence(FILE *file, char **names, char **seqs, char *currLine, size_t *currLen,
+                       int *index)
 {
     (*index)++;
     names[(*index)] = (char *) malloc(sizeof(char) * strlen(currLine) + 1);
@@ -87,8 +85,8 @@ size_t addToSequence(char *seqs[MAX_SEQUENCES_LEN], char *currLine, size_t currL
 }
 
 
-int calcCell(int *table, int i, int j, char *str1, char *str2, int col, int gap, int match, int
-mismatch)
+int calcCell(int *table, int i, int j, char *str1, char *str2, int col, int gap, int match,
+             int mismatch)
 {
     int up_val = *(table + (i - 1) * col + j) + gap;
     int left_val = *(table + i * col + j - 1) + gap;
@@ -103,6 +101,7 @@ mismatch)
 void initiateTable(int *table, int row, int col, int gap)
 {
     // fill the first row
+
     for (int k = 0; k < col; ++k)
     {
         *(table + k) = k * gap;
@@ -137,6 +136,26 @@ int createAndCalcMatches(char *str1, char *str2, int gap, int match, int mismatc
 }
 
 
+void compareSequences(int match, int mismatch, int gap, char *names[MAX_SEQUENCES_LEN],
+                      char *seqs[MAX_SEQUENCES_LEN], int index)
+{//now we create a table:
+//all the lines in text:
+    for (int i = 0; i <= 1; ++i)
+    {
+        //for all other lines in text
+        for (int j = i + 1; j <= index; ++j)
+        {
+            {
+                //create table and compare
+                int res = createAndCalcMatches(seqs[i], seqs[j], gap, match, mismatch);
+                printf("Score for alignment of sequence %s to sequence %s is %d\n", names[i],
+                       names[j], res);
+
+            }
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     if (argc != 5)
@@ -160,7 +179,7 @@ int main(int argc, char *argv[])
 
     char *names[MAX_SEQUENCES_LEN];
     char *seqs[MAX_SEQUENCES_LEN];
-    char currLine[LINE_MAX_LEN+2];
+    char currLine[LINE_MAX_LEN + 2];
     size_t currLength = 0;
     int index = -1;
     while (fgets(currLine, LINE_MAX_LEN, file) != NULL)
@@ -170,31 +189,13 @@ int main(int argc, char *argv[])
         if (currLine[0] == START_OF_ROW) // new sequence
         {
             createNewSequence(file, names, seqs, currLine, &currLength, &index);
-        }
-        else // add to current sequence
+        } else // add to current sequence
         {
             currLength = addToSequence(seqs, currLine, currLength, index);
         }
     }
     fclose(file);
-
-    //now we create a table:
-    //all the lines in text:
-    for (int i = 0; i <= 1; ++i)
-    {
-        //for all other lines in text
-        for (int j = i + 1; j <= index; ++j)
-        {
-            {
-                //create table and compare
-                int res = createAndCalcMatches(seqs[i], seqs[j], gap, match, mismatch);
-                printf("Score for alignment of sequence %s to sequence %s is %d\n", names[i],
-                       names[j], res);
-
-            }
-        }
-    }
-
+    compareSequences(match, mismatch, gap, names, seqs, index);
     // free all alloc
     freeMemory(names, seqs, index);
     return 0;
