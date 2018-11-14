@@ -53,14 +53,14 @@ void freeMemory(char *names[MAX_SEQUENCES_LEN], char *seqs[MAX_SEQUENCES_LEN], i
     }
 }
 
-//void removeChar(const char *currLine, char to_remove)
-//{
-//    char *pos;
-//    if ((pos = strchr(currLine, to_remove)) != NULL)
-//    {
-//        *pos = EMPTY_CHAR;
-//    }
-//}
+void removeChar(const char *currLine, char to_remove)
+{
+    char *pos;
+    if ((pos = strchr(currLine, to_remove)) != NULL)
+    {
+        *pos = EMPTY_CHAR;
+    }
+}
 
 void createNewSequence(FILE *file, char **names, char **seqs, char *currLine, size_t *currLen,
                        int *index)
@@ -73,7 +73,7 @@ void createNewSequence(FILE *file, char **names, char **seqs, char *currLine, si
         strncpy(names[(*index)], &currLine[1], strlen(currLine));
     }
     fgets(currLine, LINE_MAX_LEN, file);
-    currLine = strtok(&currLine[0], "\n");
+    removeChar(currLine, '\n');
     (*currLen) = strlen(currLine);
     seqs[(*index)] = (char *) setMemory(NULL, sizeof(char) * (*currLen) + 1);
     strcpy(seqs[(*index)], &currLine[0]);
@@ -197,12 +197,11 @@ int main(int argc, char *argv[])
     char *names[MAX_SEQUENCES_LEN];
     char *seqs[MAX_SEQUENCES_LEN];
     char currLine[LINE_MAX_LEN + 2];
-
     size_t currLength = 0;
     int index = -1;
     while (fgets(currLine, LINE_MAX_LEN, file) != NULL)
     {
-        strtok(&currLine[0], "\n");
+        removeChar(currLine, '\n');        // remove '\n'
 
         if (currLine[0] == START_OF_ROW) // new sequence
         {
