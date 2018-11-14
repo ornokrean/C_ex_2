@@ -22,8 +22,27 @@
  */
 const char START_OF_ROW = '>';
 
+/**
+ * @var char EMPTY_CHAR
+ * @brief empty char to replace non wanted char
+ */
+static const char EMPTY_CHAR = '\0';
+
 
 #define MAX(a, b) ((a)>(b)) ? a : b;
+
+
+void *setMemory(void *oldMemory, size_t newSize)
+{
+    void *newMemory = (oldMemory == NULL) ? malloc(newSize) : realloc(oldMemory, newSize);
+    if (newMemory == NULL)
+    {
+        fprintf(stderr, "ERROR no memory allocated");
+        exit(EXIT_FAILURE);
+    }
+    return newMemory;
+}
+
 
 void freeMemory(char *names[MAX_SEQUENCES_LEN], char *seqs[MAX_SEQUENCES_LEN], int index)
 {
@@ -34,29 +53,29 @@ void freeMemory(char *names[MAX_SEQUENCES_LEN], char *seqs[MAX_SEQUENCES_LEN], i
     }
 }
 
-void removeChar(const char *currLine, char to_remove)
-{
-    char *pos;
-    if ((pos = strchr(currLine, to_remove)) != NULL)
-        *pos = '\0';
-}
+//void removeChar(const char *currLine, char to_remove)
+//{
+//    char *pos;
+//    if ((pos = strchr(currLine, to_remove)) != NULL)
+//    {
+//        *pos = EMPTY_CHAR;
+//    }
+//}
 
 void createNewSequence(FILE *file, char **names, char **seqs, char *currLine, size_t *currLen,
                        int *index)
 {
     (*index)++;
-    names[(*index)] = (char *) malloc(sizeof(char) * strlen(currLine) + 1);
-//             get the line name
+    names[(*index)] = (char *) setMemory(NULL, sizeof(char) * strlen(currLine) + 1);
+    // get the line name
     if (names[(*index)] != NULL)
     {
         strncpy(names[(*index)], &currLine[1], strlen(currLine));
     }
     fgets(currLine, LINE_MAX_LEN, file);
-
-    removeChar(currLine, '\n');
-
+    currLine = strtok(&currLine[0], "\n");
     (*currLen) = strlen(currLine);
-    seqs[(*index)] = (char *) malloc(sizeof(char) * (*currLen) + 1);
+    seqs[(*index)] = (char *) setMemory(NULL, sizeof(char) * (*currLen) + 1);
     strcpy(seqs[(*index)], &currLine[0]);
 }
 
@@ -68,7 +87,6 @@ int convertToInt(const char *to_convert)
     if (strlen(temp))
     {
         fprintf(stderr, "ERROR Not a number");
-        // FIXME NOT A NUMBER FREE MEMORYYYYYYY
         exit(EXIT_FAILURE);
     }
     return res;
@@ -78,15 +96,14 @@ int convertToInt(const char *to_convert)
 size_t addToSequence(char *seqs[MAX_SEQUENCES_LEN], char *currLine, size_t currLen, int index)
 {
     currLen += strlen(currLine);
-    seqs[index] = (char *) realloc(seqs[index], sizeof(char) * currLen + 1);
-    //FIXME handle no alloc
+    seqs[index] = (char *) setMemory(seqs[index], sizeof(char) * currLen + 1);
     strcat(seqs[index], currLine);
     return currLen;
 }
 
 
-int calcCell(int *table, int i, int j, char *str1, char *str2, int col, int gap, int match,
-             int mismatch)
+int calcCell(const int *table, int i, int j, const char *str1, const char *str2, int col, int gap,
+             int match, int mismatch)
 {
     int up_val = *(table + (i - 1) * col + j) + gap;
     int left_val = *(table + i * col + j - 1) + gap;
@@ -118,7 +135,7 @@ int createAndCalcMatches(char *str1, char *str2, int gap, int match, int mismatc
     int row = (int) strlen(str1) + 1, col = (int) strlen(str2) + 1;
 
     // create the table
-    int *table = (int *) malloc((row) * (col) * sizeof(int));
+    int *table = (int *) setMemory(NULL, (row) * (col) * sizeof(int));
     initiateTable(table, row, col, gap);
 
     //calc all the cells
@@ -180,16 +197,18 @@ int main(int argc, char *argv[])
     char *names[MAX_SEQUENCES_LEN];
     char *seqs[MAX_SEQUENCES_LEN];
     char currLine[LINE_MAX_LEN + 2];
+
     size_t currLength = 0;
     int index = -1;
     while (fgets(currLine, LINE_MAX_LEN, file) != NULL)
     {
-        removeChar(currLine, '\n');        // remove '\n'
+        strtok(&currLine[0], "\n");
 
         if (currLine[0] == START_OF_ROW) // new sequence
         {
             createNewSequence(file, names, seqs, currLine, &currLength, &index);
-        } else // add to current sequence
+        }
+        else // add to current sequence
         {
             currLength = addToSequence(seqs, currLine, currLength, index);
         }
