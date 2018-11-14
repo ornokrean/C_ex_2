@@ -1,9 +1,2 @@
->seq1
-GATTACAATA
-TT
->seq2
-CTTTGCATTT
->seq3
-GGATTCGA
-T
-G
+>name1GATTACAATATTASJDHJASDHJKASHJDHASKJDHKJASHDKJASHDJKHASKJDHKJNZM<XCVNMZXNCLKVJOIZJXLKOVNLMAXNFDK
+asdkahjskdhaskjjdhkjashdjkahskdnjklmanskjdhoajshdkmnzxbvn,mlsuidawyfkjanbsksldfbm,xzvc.zxcjkhvhjkxmc

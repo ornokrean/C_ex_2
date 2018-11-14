@@ -7,7 +7,7 @@
  * @def LINE_MAX_LEN 100
  * @brief The maximum line length
  */
-#define LINE_MAX_LEN 100
+#define LINE_MAX_LEN 101
 
 /**
  * @def LINE_MAX_LEN 100
@@ -32,7 +32,8 @@ static const char EMPTY_CHAR = '\0';
 #define MAX(a, b) ((a)>(b)) ? a : b;
 
 
-int getBiggerOfThree(int a, int b, int c){
+int getBiggerOfThree(int a, int b, int c)
+{
     int max = MAX(a, b);
     max = MAX(max, c);
     return max;
@@ -68,8 +69,8 @@ void removeChar(const char *currLine, char to_remove)
     }
 }
 
-void createNewSequence(FILE *file, char **names, char **seqs, char *currLine, size_t *currLen,
-                       int *index)
+void createNewSequence(FILE *file, char *names[MAX_SEQUENCES_LEN], char *seqs[MAX_SEQUENCES_LEN],
+                       char *currLine, size_t *currLength, int *index)
 {
     (*index)++;
     names[(*index)] = (char *) setMemory(NULL, sizeof(char) * strlen(currLine) + 1);
@@ -80,8 +81,8 @@ void createNewSequence(FILE *file, char **names, char **seqs, char *currLine, si
     }
     fgets(currLine, LINE_MAX_LEN, file);
     removeChar(currLine, '\n');
-    (*currLen) = strlen(currLine);
-    seqs[(*index)] = (char *) setMemory(NULL, sizeof(char) * (*currLen) + 1);
+    (*currLength) = strlen(currLine);
+    seqs[(*index)] = (char *) setMemory(NULL, sizeof(char) * (*currLength) + 1);
     strcpy(seqs[(*index)], &currLine[0]);
 }
 
@@ -99,12 +100,12 @@ int convertToInt(const char *to_convert)
 }
 
 
-size_t addToSequence(char *seqs[MAX_SEQUENCES_LEN], char *currLine, size_t currLen, int index)
+size_t addToSequence(char *seqs[MAX_SEQUENCES_LEN], char *currLine, size_t currLength, int index)
 {
-    currLen += strlen(currLine);
-    seqs[index] = (char *) setMemory(seqs[index], sizeof(char) * currLen + 1);
+    currLength += strlen(currLine);
+    seqs[index] = (char *) setMemory(seqs[index], sizeof(char) * currLength + 1);
     strcat(seqs[index], currLine);
-    return currLen;
+    return currLength;
 }
 
 
@@ -115,7 +116,7 @@ int calcCell(const int *table, int i, int j, const char *str1, const char *str2,
     int left_val = *(table + i * col + j - 1) + gap;
     int ul_val = *(table + (i - 1) * col + j - 1);
     ul_val += (str1[i - 1] == str2[j - 1]) ? match : mismatch;
-    int max = getBiggerOfThree(up_val, left_val,ul_val);
+    int max = getBiggerOfThree(up_val, left_val, ul_val);
     return max;
 }
 
@@ -162,7 +163,7 @@ void compareSequences(int match, int mismatch, int gap, char *names[MAX_SEQUENCE
                       char *seqs[MAX_SEQUENCES_LEN], int index)
 {//now we create a table:
 //all the lines in text:
-    for (int i = 0; i <= 1; ++i)
+    for (int i = 0; i <= index; ++i)
     {
         //for all other lines in text
         for (int j = i + 1; j <= index; ++j)
@@ -199,15 +200,16 @@ int main(int argc, char *argv[])
 
     char *names[MAX_SEQUENCES_LEN];
     char *seqs[MAX_SEQUENCES_LEN];
-    char currLine[LINE_MAX_LEN + 2];
+    char currLine[LINE_MAX_LEN];
     size_t currLength = 0;
-    int index = -1;
+    int index = -1; // we increase index before using, so it will be 0 in first run.
     while (fgets(currLine, LINE_MAX_LEN, file) != NULL)
     {
         removeChar(currLine, '\n');        // remove '\n'
 
         if (currLine[0] == START_OF_ROW) // new sequence
         {
+            currLength = 0;
             createNewSequence(file, names, seqs, currLine, &currLength, &index);
         }
         else // add to current sequence
@@ -216,6 +218,11 @@ int main(int argc, char *argv[])
         }
     }
     fclose(file);
+    if (index < 1){
+        fprintf(stderr,"ERROR, Only one sequence in file");
+        freeMemory(names, seqs, index);
+        exit(EXIT_FAILURE);
+    }
     compareSequences(match, mismatch, gap, names, seqs, index);
     // free all alloc
     freeMemory(names, seqs, index);
@@ -225,11 +232,3 @@ int main(int argc, char *argv[])
 
 
 
-
-
-
-
-// gcc -Wextra -Wall -Wvla -lm main.c -o ex2
-
-//valgrind --leak-check=full --show-possibly-lost=yes --show-reachable=yes
-// --undef-value-errors=yes ex2 input.txt 1 0 -2
