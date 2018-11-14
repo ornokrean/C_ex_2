@@ -50,6 +50,7 @@ void *setMemory(void *oldMemory, size_t newSize)
 }
 
 
+
 void freeMemory(char *names[MAX_SEQUENCES_LEN], char *seqs[MAX_SEQUENCES_LEN], int index)
 {
     for (int i = 0; i <= index; ++i)
