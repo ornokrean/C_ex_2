@@ -360,7 +360,7 @@ void compareSequences(int match, int mismatch, int gap, char *names[MAX_SEQUENCE
  * @return the index - the number of sequences read from the file
  */
 int readFile(FILE *file, char *names[MAX_SEQUENCES_LEN], char *seqs[MAX_SEQUENCES_LEN],
-        char *currLine, size_t *currLength, int *index)
+             char *currLine, size_t *currLength, int *index)
 {
     while (fgets(currLine, LINE_MAX_LEN, file) != NULL)
     {
