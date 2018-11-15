@@ -122,7 +122,7 @@ static const char USAGE_MSG[] = "ERROR Usage: CompareSequences <path_to_sequence
  * @def MAX(a, b)
  * @brief A macro that returns the maximum between a and b
  */
-#define MAX(a, b) ((a)>(b)) ? a : b;
+#define MAX(a, b) ((a)>(b)) ? (a) : (b);
 
 
 
