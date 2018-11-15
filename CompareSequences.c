@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 // -------------------------- const definitions -------------------------
 /**
 * @def FILE_PATH_INDEX 1
@@ -59,6 +58,14 @@
  */
 #define MAX_SEQUENCES_LEN 100
 
+
+/**
+ * @def NUM_OF_ARGS 5
+ * @brief valid number of args
+ */
+#define NUM_OF_ARGS 5
+
+
 /**
  * @var char START_OF_ROW
  * @brief Start of a valid new line
@@ -70,6 +77,12 @@ const char START_OF_ROW = '>';
  * @brief empty char to replace non wanted char
  */
 static const char EMPTY_CHAR = '\0';
+
+/**
+ * @var char LINE_CHAR
+ * @brief line jump to replace - non wanted char
+ */
+static const char LINE_CHAR = '\n';
 
 /**
  * @var char MEMORY_ERROR[]
@@ -98,13 +111,18 @@ static const char FILE_ERROR[] = "ERROR opening file %s";
  */
 static const char ONE_SEQ_ERROR[] = "ERROR, Only one sequence in file";
 
+/**
+ * @var char USAGE_MSG[]
+ * @brief message for wrong usage
+ */
+static const char USAGE_MSG[] = "ERROR Usage: CompareSequences <path_to_sequences_file> <m> <s> "
+                                "<g>";
 
 /**
  * @def MAX(a, b)
  * @brief A macro that returns the maximum between a and b
  */
-
-#define MAX(a, b) ((a)>(b)) ? (a) : (b);
+#define MAX(a, b) ((a)>(b)) ? a : b;
 
 
 
@@ -191,7 +209,7 @@ void createNewSequence(FILE *file, char *names[MAX_SEQUENCES_LEN], char *seqs[MA
         strncpy(names[(*index)], &currLine[1], strlen(currLine));
     }
     fgets(currLine, LINE_MAX_LEN, file);
-    removeChar(currLine, '\n');
+    removeChar(currLine, LINE_CHAR);
     (*currLength) = strlen(currLine);
     seqs[(*index)] = (char *) allocMemory(NULL, sizeof(char) * (*currLength) + 1);
     strcpy(seqs[(*index)], &currLine[0]);
@@ -341,40 +359,34 @@ void compareSequences(int match, int mismatch, int gap, char *names[MAX_SEQUENCE
  * @param file the file to read
  * @return the index - the number of sequences read from the file
  */
-int readFile(FILE *file)
+int readFile(FILE *file, char *names[MAX_SEQUENCES_LEN], char *seqs[MAX_SEQUENCES_LEN],
+        char *currLine, size_t *currLength, int *index)
 {
-    char *names[MAX_SEQUENCES_LEN];
-    char *seqs[MAX_SEQUENCES_LEN];
-    char currLine[LINE_MAX_LEN];
-    size_t currLength = 0;
-    int index = -1; // we increase index before using, so it will be 0 in first run.
     while (fgets(currLine, LINE_MAX_LEN, file) != NULL)
     {
-        removeChar(currLine, '\n');        // remove '\n'
+        removeChar(currLine, LINE_CHAR);        // remove '\n'
 
         if (currLine[0] == START_OF_ROW) // new sequence
         {
-            currLength = 0;
-            createNewSequence(file, names, seqs, currLine, &currLength, &index);
+            (*currLength) = 0;
+            createNewSequence(file, names, seqs, currLine, currLength, index);
         }
         else // add to current sequence
         {
-            currLength = addToSequence(seqs, currLine, currLength, index);
+            (*currLength) = addToSequence(seqs, currLine, (*currLength), (*index));
         }
     }
-    fclose(file);
-    return index;
+    return (*index);
 }
-
 
 /**
  * this is the main function of the program
  */
 int main(int argc, char *argv[])
 {
-    if (argc != 5)
+    if (argc != NUM_OF_ARGS)
     {
-        printf("ERROR Usage: CompareSequences <path_to_sequences_file> <m> <s> <g>");
+        printf(USAGE_MSG);
         exit(EXIT_FAILURE);
     }
 
@@ -391,9 +403,13 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    char *names[100];
-    char *seqs[100];
-    int index = readFile(file);
+    char *names[MAX_SEQUENCES_LEN];
+    char *seqs[MAX_SEQUENCES_LEN];
+    char currLine[LINE_MAX_LEN];
+    size_t currLength = 0;
+    int index = -1; // we increase index before using, so it will be 0 in first run.
+    index = readFile(file, names, seqs, currLine, &currLength, &index);
+    fclose(file);
     if (index < 1)
     {
         fprintf(stderr, ONE_SEQ_ERROR);
@@ -405,3 +421,9 @@ int main(int argc, char *argv[])
     freeMemory(names, seqs, index);
     return 0;
 }
+
+
+
+
+
+
