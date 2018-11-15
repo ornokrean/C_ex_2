@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 // -------------------------- const definitions -------------------------
 /**
 * @def FILE_PATH_INDEX 1
@@ -103,7 +104,7 @@ static const char ONE_SEQ_ERROR[] = "ERROR, Only one sequence in file";
  * @brief A macro that returns the maximum between a and b
  */
 
-#define MAX(a, b) ((a)>(b)) ? a : b;
+#define MAX(a, b) ((a)>(b)) ? (a) : (b);
 
 
 
